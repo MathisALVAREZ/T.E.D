@@ -1,0 +1,15 @@
+services:
+  ted:
+    build: .
+    container_name: ${INSTANCE:-ted}
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:${PORT_LOCAL:-3081}:3000"   # joignable uniquement depuis le VPS
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
